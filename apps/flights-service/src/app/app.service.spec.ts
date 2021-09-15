@@ -1,16 +1,16 @@
 import { Test } from '@nestjs/testing';
 
-import { AppService } from './app.service';
+import { MockDataService } from './mock-data.service';
 
 describe('AppService', () => {
-  let service: AppService;
+  let service: MockDataService;
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
-      providers: [AppService],
+      providers: [MockDataService],
     }).compile();
 
-    service = app.get<AppService>(AppService);
+    service = app.get<MockDataService>(MockDataService);
   });
 
   describe('getData', () => {
@@ -20,4 +20,5 @@ describe('AppService', () => {
       });
     });
   });
+
 });

@@ -1,1 +1,1 @@
-export * from './lib/backend-model';
+export * from './dto';

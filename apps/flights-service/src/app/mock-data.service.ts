@@ -7,21 +7,24 @@ import {
 } from '@emirates/common/model';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { readFileSync } from 'fs';
-import { isEmpty } from 'lodash';
+import { isEmpty, sample, take } from 'lodash';
 import { parse } from 'papaparse';
 
 @Injectable()
-export class AppService implements OnApplicationBootstrap {
-  private readonly logger: Logger = new Logger(AppService.name);
+export class MockDataService implements OnApplicationBootstrap {
+  private readonly logger: Logger = new Logger(MockDataService.name);
 
   private countryMap: Map<string, ICountry> = new Map();
   private airportMap: Map<number, IAirport> = new Map();
   private airlineMap: Map<number, IAirline> = new Map();
   private routesMap: Map<string, IRoute> = new Map();
-  private routesByAirlineId: Map<string, IRoute[]> = new Map();
-  private routesByAirportSourceId: Map<string, IRoute[]> = new Map();
-  private routesByAirportDestId: Map<string, IRoute[]> = new Map();
+  private routesByAirlineId: Map<number, IRoute[]> = new Map();
+  private routesByAirportSourceId: Map<number, IRoute[]> = new Map();
+  private routesByAirportDestId: Map<number, IRoute[]> = new Map();
 
+  /**
+   * @codeCoverageIgnore
+   */
   async onApplicationBootstrap() {
     this.logger.log('Load Countries');
     this.loadCountries();
@@ -33,11 +36,35 @@ export class AppService implements OnApplicationBootstrap {
     this.loadRoutes();
   }
 
+  public async getAirlines(): Promise<IAirline[]> {
+    this.logger.log('Getting all Airlines');
+    const res = take(
+      Array.from(this.airlineMap, ([, value]) => value),
+      100
+    );
+    console.log(sample(res));
+    return res;
+  }
+
+  public getRoutesByAirlineId(airlineId: number): IRoute[] {
+    return this.routesByAirlineId.get(airlineId);
+  }
+
+  public getRoutesByAirportSourceId(sourceAirportId: number): IRoute[] {
+    return this.routesByAirportSourceId.get(sourceAirportId);
+  }
+
+  public getRoutesByAirportDestId(destAirportId: number): IRoute[] {
+    return this.routesByAirportDestId.get(destAirportId);
+  }
+
+  /**
+   * @codeCoverageIgnore
+   */
   private async loadCountries() {
     this.logger.log('Loading Countries Data  ...');
 
     const file = readFileSync(__dirname + '/assets/countries.dat', 'utf8');
-    // parse(file, { complete: (result) => this.logger.log(JSON.stringify(result.data)) });
     const v = parse(file);
 
     this.logger.log('Structuring Countries Data  ...');
@@ -56,25 +83,36 @@ export class AppService implements OnApplicationBootstrap {
     this.logger.log(`Total number of Countries: ${this.countryMap.size}`);
   }
 
+  /**
+   * @codeCoverageIgnore
+   */
   private loadAirlines() {
     this.logger.log('Loading Airlines Data  ...');
 
     const file = readFileSync(__dirname + '/assets/airlines.dat', 'utf8');
-    // parse(file, { complete: (result) => this.logger.log(JSON.stringify(result.data)) });
     const v = parse(file);
 
     this.logger.log('Structuring Airlines Data  ...');
 
     v.data.forEach(([id, name, alias, iata, icao, callsign, country]) => {
-      this.airlineMap.set(+id, {
-        id: +id,
-        name,
-        alias,
-        iata,
-        icao,
-        callsign,
-        country,
-      });
+      if (
+        // alias !== '\\N' &&
+        iata &&
+        iata.length >= 2 &&
+        icao &&
+        icao.length >= 2 &&
+        !isEmpty(country)
+      ) {
+        this.airlineMap.set(+id, {
+          id: +id,
+          name,
+          alias,
+          iata,
+          icao,
+          callsign,
+          country,
+        });
+      }
     });
 
     this.logger.log(
@@ -84,11 +122,13 @@ export class AppService implements OnApplicationBootstrap {
     this.logger.log(`Total number of Airlines: ${this.airlineMap.size}`);
   }
 
+  /**
+   * @codeCoverageIgnore
+   */
   private loadAirports() {
     this.logger.log('Loading Airports Data  ...');
 
     const file = readFileSync(__dirname + '/assets/airports.dat', 'utf8');
-    // parse(file, { complete: (result) => this.logger.log(JSON.stringify(result.data)) });
     const v = parse(file);
 
     this.logger.log('Structuring Airports Data  ...');
@@ -117,11 +157,13 @@ export class AppService implements OnApplicationBootstrap {
     this.logger.log(`Total number of Airports: ${this.airportMap.size}`);
   }
 
+  /**
+   * @codeCoverageIgnore
+   */
   private loadRoutes() {
     this.logger.log('Loading Routes Data  ...');
 
     const file = readFileSync(__dirname + '/assets/routes.dat', 'utf8');
-    // parse(file, { complete: (result) => this.logger.log(JSON.stringify(result.data)) });
     const v = parse(file);
 
     this.logger.log('Structuring Routes Data  ...');
@@ -160,24 +202,28 @@ export class AppService implements OnApplicationBootstrap {
         4
       )}`
     );
+
     this.logger.log(
       `All Routes for Emirates Airline\n ${
-        this.routesByAirlineId.get('2183')?.length
+        this.routesByAirlineId.get(2183)?.length
       }`
     );
     this.logger.log(
       `All Routes where Source LHR\n ${
-        this.routesByAirportSourceId.get('507')?.length
+        this.routesByAirportSourceId.get(507)?.length
       }`
     );
     this.logger.log(
       `Total Routes where Destination DXB\n ${
-        this.routesByAirportDestId.get('2188')?.length
+        this.routesByAirportDestId.get(2188)?.length
       }`
     );
     this.logger.log(`Total number of routes: ${this.routesMap.size}`);
   }
 
+  /**
+   * @codeCoverageIgnore
+   */
   private createOrAppendRoute(route, mapType: 'AIRLINE' | 'SOURCE' | 'DEST') {
     const id = this.getRouteMapIdentifier(route, mapType);
     const map: Map<string | number, IRoute[]> = this.getRouteMap(mapType);
@@ -188,6 +234,9 @@ export class AppService implements OnApplicationBootstrap {
     }
   }
 
+  /**
+   * @codeCoverageIgnore
+   */
   private getRouteMapIdentifier(
     route: IRoute,
     mapType: 'AIRLINE' | 'SOURCE' | 'DEST'
@@ -202,6 +251,9 @@ export class AppService implements OnApplicationBootstrap {
     }
   }
 
+  /**
+   * @codeCoverageIgnore
+   */
   private getRouteMap(mapType: 'AIRLINE' | 'SOURCE' | 'DEST') {
     switch (mapType) {
       case 'AIRLINE':
