@@ -1,13 +1,13 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import './styles.css';
-import { SharedUiComponents } from '@emirates/frontend-components';
+import { FrontendComponents } from '@emirates/frontend-components';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <SharedUiComponents />
+        <FrontendComponents />
         <title>Welcome to flights-ui!</title>
       </Head>
       <div className="app">

@@ -2,7 +2,6 @@ import { Flight } from '@emirates/backend/model';
 import { IFlight } from '@emirates/common/model';
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { sampleSize } from 'lodash';
 import { AppService } from './app.service';
 
 @Controller()

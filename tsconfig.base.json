@@ -17,7 +17,7 @@
     "paths": {
       "@emirates/backend/model": ["libs/backend/model/src/index.ts"],
       "@emirates/common/model": ["libs/common/model/src/index.ts"],
-      "@emirates/frontend-components": ["libs/frontend/components/src/index.ts"]
+      "@emirates/frontend/components": ["libs/frontend/components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
