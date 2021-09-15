@@ -45,9 +45,6 @@
     "flights-ui-e2e": {
       "tags": [],
       "implicitDependencies": ["flights-ui"]
-    },
-    "frontend-components": {
-      "tags": []
     }
   }
 }

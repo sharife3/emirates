@@ -225,30 +225,6 @@
           }
         }
       }
-    },
-    "frontend-components": {
-      "root": "libs/frontend/components",
-      "sourceRoot": "libs/frontend/components/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": [
-              "libs/frontend/components/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/frontend/components"],
-          "options": {
-            "jestConfig": "libs/frontend/components/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
     }
   },
   "cli": {
