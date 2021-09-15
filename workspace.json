@@ -52,6 +52,57 @@
         }
       }
     },
+    "flights-service": {
+      "root": "apps/flights-service",
+      "sourceRoot": "apps/flights-service/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/flights-service",
+            "main": "apps/flights-service/src/main.ts",
+            "tsConfig": "apps/flights-service/tsconfig.app.json",
+            "assets": ["apps/flights-service/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/flights-service/src/environments/environment.ts",
+                  "with": "apps/flights-service/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "flights-service:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/flights-service/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/flights-service"],
+          "options": {
+            "jestConfig": "apps/flights-service/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "flights-ui": {
       "root": "apps/flights-ui",
       "sourceRoot": "apps/flights-ui",

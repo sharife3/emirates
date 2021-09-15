@@ -30,6 +30,9 @@
     "flights-gateway": {
       "tags": []
     },
+    "flights-service": {
+      "tags": []
+    },
     "flights-ui": {
       "tags": []
     },
