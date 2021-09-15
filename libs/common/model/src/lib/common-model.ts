@@ -1,3 +1,2 @@
-export function commonModel(): string {
-  return 'common-model';
-}
+export * from './interfaces';
+export * from './utils';
