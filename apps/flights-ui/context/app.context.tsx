@@ -66,3 +66,5 @@ export {
   useAppDispatch,
   // Actions
 };
+
+export default AppProvider
