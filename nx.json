@@ -33,6 +33,9 @@
     "flights-ui-e2e": {
       "tags": [],
       "implicitDependencies": ["flights-ui"]
+    },
+    "shared-ui-components": {
+      "tags": []
     }
   }
 }
