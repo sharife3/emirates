@@ -27,7 +27,7 @@
     ]
   },
   "projects": {
-    "flights-api": {
+    "flights-gateway": {
       "tags": []
     },
     "flights-ui": {

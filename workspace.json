@@ -1,19 +1,19 @@
 {
   "version": 2,
   "projects": {
-    "flights-api": {
-      "root": "apps/flights-api",
-      "sourceRoot": "apps/flights-api/src",
+    "flights-gateway": {
+      "root": "apps/flights-gateway",
+      "sourceRoot": "apps/flights-gateway/src",
       "projectType": "application",
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/flights-api",
-            "main": "apps/flights-api/src/main.ts",
-            "tsConfig": "apps/flights-api/tsconfig.app.json",
-            "assets": ["apps/flights-api/src/assets"]
+            "outputPath": "dist/apps/flights-gateway",
+            "main": "apps/flights-gateway/src/main.ts",
+            "tsConfig": "apps/flights-gateway/tsconfig.app.json",
+            "assets": ["apps/flights-gateway/src/assets"]
           },
           "configurations": {
             "production": {
@@ -22,8 +22,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/flights-api/src/environments/environment.ts",
-                  "with": "apps/flights-api/src/environments/environment.prod.ts"
+                  "replace": "apps/flights-gateway/src/environments/environment.ts",
+                  "with": "apps/flights-gateway/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -32,21 +32,21 @@
         "serve": {
           "executor": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "flights-api:build"
+            "buildTarget": "flights-gateway:build"
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/flights-api/**/*.ts"]
+            "lintFilePatterns": ["apps/flights-gateway/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/flights-api"],
+          "outputs": ["coverage/apps/flights-gateway"],
           "options": {
-            "jestConfig": "apps/flights-api/jest.config.js",
+            "jestConfig": "apps/flights-gateway/jest.config.js",
             "passWithNoTests": true
           }
         }
