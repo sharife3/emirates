@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "flights-api": {
+      "tags": []
+    },
     "flights-ui": {
       "tags": []
     },
