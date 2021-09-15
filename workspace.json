@@ -1,6 +1,50 @@
 {
   "version": 2,
   "projects": {
+    "backend-model": {
+      "root": "libs/backend/model",
+      "sourceRoot": "libs/backend/model/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/backend/model/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/backend/model"],
+          "options": {
+            "jestConfig": "libs/backend/model/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "common-model": {
+      "root": "libs/common/model",
+      "sourceRoot": "libs/common/model/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/common/model/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/common/model"],
+          "options": {
+            "jestConfig": "libs/common/model/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "flights-gateway": {
       "root": "apps/flights-gateway",
       "sourceRoot": "apps/flights-gateway/src",
@@ -182,9 +226,9 @@
         }
       }
     },
-    "shared-ui-components": {
-      "root": "libs/shared-ui-components",
-      "sourceRoot": "libs/shared-ui-components/src",
+    "frontend-components": {
+      "root": "libs/frontend/components",
+      "sourceRoot": "libs/frontend/components/src",
       "projectType": "library",
       "targets": {
         "lint": {
@@ -192,15 +236,15 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": [
-              "libs/shared-ui-components/**/*.{ts,tsx,js,jsx}"
+              "libs/frontend/components/**/*.{ts,tsx,js,jsx}"
             ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared-ui-components"],
+          "outputs": ["coverage/libs/frontend/components"],
           "options": {
-            "jestConfig": "libs/shared-ui-components/jest.config.js",
+            "jestConfig": "libs/frontend/components/jest.config.js",
             "passWithNoTests": true
           }
         }

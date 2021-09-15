@@ -27,6 +27,12 @@
     ]
   },
   "projects": {
+    "backend-model": {
+      "tags": []
+    },
+    "common-model": {
+      "tags": []
+    },
     "flights-gateway": {
       "tags": []
     },
@@ -40,7 +46,7 @@
       "tags": [],
       "implicitDependencies": ["flights-ui"]
     },
-    "shared-ui-components": {
+    "frontend-components": {
       "tags": []
     }
   }
