@@ -1,13 +1,13 @@
 import {
-  IAirport,
+  genRouteKey,
   IAirline,
+  IAirport,
   ICountry,
   IRoute,
-  genRouteKey,
 } from '@emirates/common/model';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { readFileSync } from 'fs';
-import { map, sample, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import { parse } from 'papaparse';
 
 @Injectable()
@@ -139,11 +139,11 @@ export class AppService implements OnApplicationBootstrap {
       ]) => {
         const route: IRoute = {
           airline,
-          airlineId,
+          airlineId: +airlineId,
           sourceAirport,
-          sourceAirportId,
+          sourceAirportId: +sourceAirportId,
           destAirport,
-          destAirportId,
+          destAirportId: +destAirportId,
           stops,
         };
         this.routesMap.set(genRouteKey(route), route);

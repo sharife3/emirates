@@ -1,9 +1,9 @@
 export interface IRoute {
   airline: string;
-  airlineId: string;
+  airlineId: number;
   sourceAirport: string;
-  sourceAirportId: string;
+  sourceAirportId: number;
   destAirport: string;
-  destAirportId: string;
+  destAirportId: number;
   stops: number;
 }
