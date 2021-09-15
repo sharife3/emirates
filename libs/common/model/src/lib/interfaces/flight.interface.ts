@@ -1,8 +1,8 @@
 import { IFlightSchedule } from './flight-schedule.interface';
-
+import { IAirline } from './airline.interface';
 export interface IFlight {
-  flightNo: Date;
-  airline: string;
+  flightNo: string;
+  airline: IAirline;
   departure: IFlightSchedule;
   arrival: IFlightSchedule;
 }

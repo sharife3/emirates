@@ -1,10 +1,15 @@
 import {
   genRouteKey,
+  randomDate,
   IAirline,
   IAirport,
   ICountry,
   IRoute,
+  IFlight,
+  IFlightSchedule,
 } from '@emirates/common/model';
+import { Moment } from 'moment';
+import * as moment from 'moment';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { readFileSync } from 'fs';
 import { isEmpty, sample, take } from 'lodash';
@@ -36,6 +41,18 @@ export class MockDataService implements OnApplicationBootstrap {
     this.loadRoutes();
   }
 
+  public async getAirportById(airportId: number): Promise<IAirport> {
+    this.logger.log('Getting Airport by ID');
+    console.log(airportId);
+    return this.airportMap.get(airportId);
+  }
+
+  public async getAirlineById(airlineId: number): Promise<IAirline> {
+    this.logger.log('Getting Airline by ID');
+    console.log(airlineId);
+    return this.airlineMap.get(airlineId);
+  }
+
   public async getAirlines(): Promise<IAirline[]> {
     this.logger.log('Getting all Airlines');
     const res = take(
@@ -46,16 +63,76 @@ export class MockDataService implements OnApplicationBootstrap {
     return res;
   }
 
-  public getRoutesByAirlineId(airlineId: number): IRoute[] {
+  public async getRouteByRouteId(routeId: string): Promise<IRoute> {
+    return this.routesMap.get(routeId);
+  }
+
+  public async getRoutesByAirlineId(airlineId: number): Promise<IRoute[]> {
     return this.routesByAirlineId.get(airlineId);
   }
 
-  public getRoutesByAirportSourceId(sourceAirportId: number): IRoute[] {
+  public async getRoutesByAirportSourceId(
+    sourceAirportId: number
+  ): Promise<IRoute[]> {
     return this.routesByAirportSourceId.get(sourceAirportId);
   }
 
-  public getRoutesByAirportDestId(destAirportId: number): IRoute[] {
+  public async getRoutesByAirportDestId(
+    destAirportId: number
+  ): Promise<IRoute[]> {
     return this.routesByAirportDestId.get(destAirportId);
+  }
+
+  public async getFlights(): Promise<IFlight[]> {
+    const routes = Array.from(this.routesMap, ([, value]) => value);
+    return this.mapRoutes(routes);
+  }
+
+  public async getFlightsByAirportId(
+    airportId: number,
+    mapType: 'SOURCE' | 'DEST'
+  ): Promise<IFlight[]> {
+    const routesByDirectionMap = this.getRouteMap(mapType);
+    const routes = routesByDirectionMap.get(airportId);
+
+    return this.mapRoutes(routes);
+  }
+
+  private mapRoutes(routes: IRoute[]): IFlight[] {
+    return routes.map((route) => {
+      const departureAirport = this.airportMap.get(route.sourceAirportId);
+      const arrivalAirport = this.airportMap.get(route.destAirportId);
+      const todaysDate = randomDate(
+        new Date(),
+        moment(new Date()).add(3, 'hours').add(1, 'days').toDate()
+      );
+
+      if (!departureAirport || !arrivalAirport) {
+        return;
+      }
+
+      const departure: IFlightSchedule = {
+        airport: departureAirport,
+        city: departureAirport.city,
+        date: todaysDate,
+      };
+
+      const arrival: IFlightSchedule = {
+        airport: arrivalAirport,
+        city: arrivalAirport.city,
+        date: randomDate(
+          todaysDate,
+          moment(todaysDate).add(1, 'days').toDate()
+        ),
+      };
+
+      return {
+        airline: this.airlineMap.get(route.airlineId),
+        flightNo: genRouteKey(route),
+        departure,
+        arrival,
+      };
+    });
   }
 
   /**
@@ -179,6 +256,10 @@ export class MockDataService implements OnApplicationBootstrap {
         ,
         stops,
       ]) => {
+        if (isNaN(+sourceAirportId) || isNaN(+destAirportId)) {
+          return;
+        }
+
         const route: IRoute = {
           airline,
           airlineId: +airlineId,
