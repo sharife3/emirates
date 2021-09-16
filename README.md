@@ -35,12 +35,24 @@ cd emirates
 # 3. Install Dependencies
 yarn
 ```
+## Linting
+Linting can be run using the following commands:
+```bash
+# Run # Run linting for just the UI (Recommended)
+ for all projects
+npx nx run-many --target=lint --all=true
+
+# Or
+
+# Run linting for just the UI
+npx nx run flights-ui:lint 
+```
 
 ## Building
 Applications can be built using the following command:
 ```bash
 # Run build for all projects
-npx nx run-many --target=build --all=true
+npx nx run-many --target=build --all=true 
 ```
 
 ## Testing
@@ -51,7 +63,7 @@ npx nx run-many --target=test --all=true
 
 # Or
 
-# Run tests for just the UI (with Coverage enabled)
+# Run tests for just the UI (with Coverage enabled) (Recommended)
 npx nx run flights-ui:test --codeCoverage=true 
 ```
 > Note: Testing was mainly focussed on the UI as per the requirements - therefore coverage lacks in the backend.
@@ -72,7 +84,7 @@ npx nx serve flights-ui
 
 # Or 
 
-# Running with a single command as follows
+# Running with a single command as follows (Recommended)
 npx nx run-many --target=serve --all=true --parallel=true
 ```
 > Note: When running using the second option - it is important to run them using the --parallel=true otherwise, it will not progress forward to running all applications - as its blocked until a process has exited - which is not the desired behaviour.
