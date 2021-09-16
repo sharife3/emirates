@@ -53,9 +53,6 @@ npx nx run-many --target=test --all=true
 
 # Run tests for just the UI (with Coverage enabled)
 npx nx run flights-ui:test --codeCoverage=true 
-
-# 3. Install Dependencies
-yarn
 ```
 > Note: Testing was mainly focussed on the UI as per the requirements - therefore coverage lacks in the backend.
 > 
@@ -77,9 +74,6 @@ npx nx serve flights-ui
 
 # Running with a single command as follows
 npx nx run-many --target=serve --all=true --parallel=true
-
-# 3. Install Dependencies
-yarn
 ```
 > Note: When running using the second option - it is important to run them using the --parallel=true otherwise, it will not progress forward to running all applications - as its blocked until a process has exited - which is not the desired behaviour.
 
