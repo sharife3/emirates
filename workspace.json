@@ -40,8 +40,7 @@
           "outputs": ["coverage/libs/common/model"],
           "options": {
             "jestConfig": "libs/common/model/jest.config.js",
-            "passWithNoTests": true,
-            "setupFile": "jest.setup.js"
+            "passWithNoTests": true
           }
         }
       }

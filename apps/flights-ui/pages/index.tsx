@@ -1,14 +1,13 @@
-import styled from 'styled-components';
-import { useState } from 'react';
 import { IFlight } from '@emirates/common/model';
-import { FlightItem } from '../components/flight-item/flight-item';
-import { FlightList } from '../components/flight-list/flight-list';
-import { ReactElement } from 'react';
-import { API_ENDPOINT } from '../config/settings';
+import { ReactElement, useState } from 'react';
+import styled from 'styled-components';
 import {
   CallToAction,
   CallToActionContainer,
 } from '../components/common/styled-components';
+import { FlightItem } from '../components/flight-item/flight-item';
+import { FlightList } from '../components/flight-list/flight-list';
+import { API_ENDPOINT } from '../config/settings';
 
 const FixedPanel = styled.ul`
   position: fixed;
@@ -30,10 +29,11 @@ export interface IndexProps {
   flights: IFlight[];
 }
 
-export const onClickAction = (setSelectedFlight) => (): void => {
-  alert('Flight Booked');
-  setSelectedFlight(null);
-};
+export const onClickAction =
+  (setSelectedFlight: (flight: IFlight) => void) => (): void => {
+    alert('Flight Booked');
+    setSelectedFlight(null);
+  };
 
 export function Index({ flights }: IndexProps): ReactElement {
   const [selectedFlight, setSelectedFlight] = useState(null);

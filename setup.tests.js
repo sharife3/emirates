@@ -1,10 +1,5 @@
-// import "jsdom-global/register";
-// import * as Enzyme from "enzyme";
-// import * as EnzymeAdapter from "@wojtekmaj/enzyme-adapter-react-17";
 var Enzyme = require('enzyme');
 var EnzymeAdapter = require('@wojtekmaj/enzyme-adapter-react-17');
-// at the top of file , even  , before importing react
-// Setup enzyme"s react adapter
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 function doNothing() {
     // nothing
@@ -38,7 +33,7 @@ window.alert = jest.fn();
 
 
 window.fetch = jest.fn(() =>
-Promise.resolve({
-  json: () => Promise.resolve([]),
-})
+    Promise.resolve({
+        json: () => Promise.resolve([]),
+    })
 );

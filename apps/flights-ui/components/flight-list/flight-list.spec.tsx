@@ -1,4 +1,4 @@
-import { shallow, mount, render } from 'enzyme';
+import { render, shallow } from 'enzyme';
 import FlightList from './flight-list';
 
 const flight = {
