@@ -1,6 +1,5 @@
-import { Injectable, HttpService } from '@nestjs/common';
-import { IAirline, IRoute, IFlight } from '@emirates/common/model';
-import { Observable } from 'rxjs';
+import { IFlight } from '@emirates/common/model';
+import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 @Injectable()
 export class AppService {

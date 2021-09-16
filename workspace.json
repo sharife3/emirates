@@ -40,7 +40,8 @@
           "outputs": ["coverage/libs/common/model"],
           "options": {
             "jestConfig": "libs/common/model/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "setupFile": "jest.setup.js"
           }
         }
       }
@@ -195,33 +196,6 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["apps/flights-ui/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
-    "flights-ui-e2e": {
-      "root": "apps/flights-ui-e2e",
-      "sourceRoot": "apps/flights-ui-e2e/src",
-      "projectType": "application",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/flights-ui-e2e/cypress.json",
-            "devServerTarget": "flights-ui:serve",
-            "tsConfig": "apps/flights-ui-e2e/tsconfig.json"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "flights-ui:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/flights-ui-e2e/**/*.{js,ts}"]
           }
         }
       }

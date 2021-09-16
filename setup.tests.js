@@ -18,3 +18,27 @@ function addListenerFun() {
     };
 }
 window.matchMedia = window.matchMedia || addListenerFun;
+
+window.ResizeObserver =
+    window.ResizeObserver ||
+    jest.fn().mockImplementation(() => ({
+        disconnect: jest.fn(),
+        observe: jest.fn(),
+        unobserve: jest.fn(),
+    }));
+
+//--> assign mock directly without jest.fn
+window.IntersectionObserver = ({
+    disconnect: jest.fn(),
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+});
+
+window.alert = jest.fn();
+
+
+window.fetch = jest.fn(() =>
+Promise.resolve({
+  json: () => Promise.resolve([]),
+})
+);

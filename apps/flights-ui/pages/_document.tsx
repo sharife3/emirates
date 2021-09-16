@@ -6,6 +6,7 @@ import { ServerStyleSheet } from 'styled-components';
 export default class CustomDocument extends Document<{
   styleTags: ReactElement[];
 }> {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   static getInitialProps({ renderPage }) {
     const sheet = new ServerStyleSheet();
 
@@ -18,6 +19,7 @@ export default class CustomDocument extends Document<{
     return { ...page, styleTags };
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   render() {
     return (
       <Html>

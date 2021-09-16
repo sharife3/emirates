@@ -1,5 +1,5 @@
+import { IAirport, IFlightSchedule } from '@emirates/common/model';
 import { ApiProperty } from '@nestjs/swagger';
-import { IAirport, IFlight, IFlightSchedule } from '@emirates/common/model';
 import { Airport } from './airport.dto';
 
 export class FlightSchedule implements IFlightSchedule {

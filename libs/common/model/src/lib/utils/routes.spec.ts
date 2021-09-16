@@ -8,6 +8,6 @@ describe('route utility', () => {
       sourceAirportId: 507,
       destAirportId: 2188,
     };
-    expect(genRouteKey(route as IRoute)).toEqual('2183#507#2188');
+    expect(genRouteKey(route as IRoute)).toEqual('2183-507-2188');
   });
 });

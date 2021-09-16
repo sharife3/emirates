@@ -5,7 +5,7 @@ export function genRouteKey({
   sourceAirportId,
   destAirportId,
 }: IRoute): string {
-  return [airlineId, sourceAirportId, destAirportId].join('#');
+  return [airlineId, sourceAirportId, destAirportId].join('-');
 }
 
 export function randomDate(start:Date, end:Date):Date {

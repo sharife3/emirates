@@ -23,8 +23,21 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "parser": "@typescript-eslint/parser",
+      "extends": ["plugin:@nrwl/nx/typescript", 
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "plugins": ["prettier"],
+      "rules": {
+        "semi": "error",
+        "quotes": [2, "single"],
+        "no-multi-spaces": "off",
+        "no-multi-str": "off",
+        "no-mixed-operators": "off",
+        "no-return-assign": "off",
+        "react/react-in-jsx-scope": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

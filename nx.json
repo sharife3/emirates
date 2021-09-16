@@ -41,10 +41,6 @@
     },
     "flights-ui": {
       "tags": []
-    },
-    "flights-ui-e2e": {
-      "tags": [],
-      "implicitDependencies": ["flights-ui"]
     }
   }
 }

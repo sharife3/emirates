@@ -13,6 +13,16 @@ export class Airport implements IAirport {
   })
   name: string;
   @ApiProperty({
+    description: '3-letter IATA code.',
+    example: 'LHR',
+  })
+  iata: string;
+  @ApiProperty({
+    description: '4-letter ICAO code.',
+    example: 'EGLL',
+  })
+  icao: string;
+  @ApiProperty({
     description: 'Main city served by airport. May be spelled differently from Name.',
     example: 'London',
   })

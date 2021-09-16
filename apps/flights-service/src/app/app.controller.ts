@@ -1,11 +1,11 @@
+import { Airline, Flight, Route } from '@emirates/backend/model';
+import { IFlight, IRoute } from '@emirates/common/model';
 import { Controller, Get, Param } from '@nestjs/common';
-import { IAirline, IRoute, IFlight } from '@emirates/common/model';
-
-import { take, sampleSize } from 'lodash';
-
+import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { sampleSize, take } from 'lodash';
 import { MockDataService } from './mock-data.service';
-import { ApiResponse, ApiParam, ApiOperation } from '@nestjs/swagger';
-import { Airline, Route, Flight } from '@emirates/backend/model';
+
+
 
 @Controller()
 export class AppController {
@@ -14,7 +14,7 @@ export class AppController {
   private static MAXIMUM_RESULT_COUNT = 100;
 
   @Get()
-  getData() {
+  getData():{message:string} {
     return this.mockDataService.getData();
   }
 

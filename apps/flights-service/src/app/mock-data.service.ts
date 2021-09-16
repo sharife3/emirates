@@ -1,18 +1,17 @@
 import {
   genRouteKey,
-  randomDate,
   IAirline,
   IAirport,
   ICountry,
-  IRoute,
   IFlight,
   IFlightSchedule,
+  IRoute,
+  randomDate,
 } from '@emirates/common/model';
-import { Moment } from 'moment';
-import * as moment from 'moment';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { readFileSync } from 'fs';
 import { isEmpty, sample, take } from 'lodash';
+import * as moment from 'moment';
 import { parse } from 'papaparse';
 
 @Injectable()
@@ -30,7 +29,7 @@ export class MockDataService implements OnApplicationBootstrap {
   /**
    * @codeCoverageIgnore
    */
-  async onApplicationBootstrap() {
+  async onApplicationBootstrap(): Promise<void> {
     this.logger.log('Load Countries');
     this.loadCountries();
     this.logger.log('Load Airports');
@@ -221,6 +220,8 @@ export class MockDataService implements OnApplicationBootstrap {
         this.airportMap.set(+id, {
           id: +id,
           name,
+          iata,
+          icao,
           city,
           country: country,
         });
