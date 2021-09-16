@@ -72,7 +72,7 @@ export const RowContainer = styled.li.attrs<RowContainerProp>((prop) => ({
   background: #fff;
 
   &:hover {
-    background: ${(prop) => (prop.nest ? '#F5F5F5' : '#fff')};
+    background: ${(prop) => (prop.nest ? 'rgba(198, 13, 48, 0.1)' : '#fff')};
   }
 `;
 
