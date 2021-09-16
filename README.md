@@ -38,8 +38,7 @@ yarn
 ## Linting
 Linting can be run using the following commands:
 ```bash
-# Run # Run linting for just the UI (Recommended)
- for all projects
+# Run for all projects (Recommended)
 npx nx run-many --target=lint --all=true
 
 # Or
